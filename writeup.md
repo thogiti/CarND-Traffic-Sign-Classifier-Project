@@ -55,15 +55,15 @@ signs data set:
 
 Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
 
-(https://github.com/thogiti/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup/training_data_histogram.png)
+![Histogram of training data](https://github.com/thogiti/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup/training_data_histogram.png)
 
-(https://github.com/thogiti/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup/historgram-all-datasets.png)
+![Histogram of all datasets](https://github.com/thogiti/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup/historgram-all-datasets.png)
 
 The class lables (signs) are not uniformly distributed. This may lead to bias in learning from the over sampled signs.
 
 We can also visualize full list of signs.
 
-(https://github.com/thogiti/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup/class_images.png)
+![All signs](https://github.com/thogiti/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup/class_images.png)
 
 
 ###Design and Test a Model Architecture
