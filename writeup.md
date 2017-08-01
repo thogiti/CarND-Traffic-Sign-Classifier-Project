@@ -78,43 +78,65 @@ Then I normalized the image data (-0.5, 0.5) while improving the dynamic range o
 
 Finally, I decided to generate additional data because as shown in the visualization the distribution of examples are not uniformly distributed. To add more data to the the data set, I used translate ([-2,2] pixels), scale ([.9,1.1] ratio) and rotation ([-15,+15] degrees) as suggested by [Traffic Sign Recognition with Multi-Scale Convolutional Networks](http://yann.lecun.com/exdb/publis/pdf/sermanet-ijcnn-11.pdf). 
 
+![Sample transformed sign data label](https://github.com/thogiti/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup/transformed_data_sample_image.png)
+
+![Historgram of all datasets after data augmentation](https://github.com/thogiti/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup/historgram-all-datasets-augmented.png)
+
 
 ####2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
-My final model consisted of the following layers:
+Another convolutional layer was added to the original LeNet architecture to grow the architecture deeper. My final model (this model was implemented by [Dmitry Kudinov](https://github.com/dmitrykudinov) instead of only using the Y-Channel of YUV-image he used the full RGB-image) consisted of the following layers:
+
+
+The architecture of my model:
 
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Input         		| 32x32x3 RGB image   							| 
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
-| RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
-|						|												|
-|						|												|
- 
+| Input         		| 32x32x1 Y-Channel of YUV-image   				| 
+| Convolution 5x5      	| 1x1 stride, valid padding, outputs 28x28x9   	|
+| RELU			        |	                               				|
+| Convolution 10x10    	| 1x1 stride, valid padding, outputs 19x19x27  	|
+| RELU			    	|	                                            |
+| Convolution 10x10    	| 1x1 stride, valid padding, outputs 10x10x32  	|
+| RELU                  |                                               |
+| Max pooling	        | 2x2 stride,  outputs 5x5x32 (800)        		|
+| Fully connected	    | 800 -> 120                           	    	|
+| RELU			       	|	                                            |
+| Fully connected	    | 120 -> 84                            			|
+| RELU			    	|	                                            |
+| Fully connected	    | 84 -> 43                             			|
+| Softmax           	|	           									|
 
 
 ####3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-To train the model, I used an ....
+TTo train the model, I used an Adamoptimizer with 50 epochs and batch size of 256 images.
 
 ####4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
 My final model results were:
-* training set accuracy of ?
-* validation set accuracy of ? 
-* test set accuracy of ?
+* training set accuracy of 0.983
+* validation set accuracy of 0.983
+* test set accuracy of 0.961
 
 If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-* Which parameters were tuned? How were they adjusted and why?
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
 
+* What was the first architecture that was tried and why was it chosen?
+I started by using the normal LeNet5 architecture as discussed in lesson 8. Since it did not give me the desired validation-accuracy I implemented other similar architecture like at [Traffic Sign Recognition with Multi-Scale Convolutional Networks](http://yann.lecun.com/exdb/publis/pdf/sermanet-ijcnn-11.pdf) but setteled for the architecture described above by [Dmitry Kudinov](https://github.com/dmitrykudinov).
+
+* What were some problems with the initial architecture?
+Even after data augmentation and experimenting with more preprocessing the test-accuracy did not improve.
+
+* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
+Another convolutional layer was added to the original LeNet architecture to grow the architecture deeper.
+
+* Which parameters were tuned? How were they adjusted and why?
+The learning rate was dropped to 0.001, µ stayed at 0 and σ at 0.1.
+
+* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
+Convolution layer can improve image recognition as not only a single value is taken into consideration but we took the neighborhood values into our analysis. Using dropout layer is a way to prevent overfitting in NN.
+  
+  
 If a well known architecture was chosen:
 * What architecture was chosen?
 * Why did you believe it would be relevant to the traffic sign application?
