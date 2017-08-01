@@ -74,7 +74,7 @@ As a first step, I converted the images to grayscale by converting from RGB to Y
 
 Then I normalized the image data (-0.5, 0.5) while improving the dynamic range of the image by spreading the histogram. 
 
-(https://github.com/thogiti/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup/transformed_data_sample_image.png)
+![transformed data](https://github.com/thogiti/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup/transformed_data_sample_image.png)
 
 Finally, I decided to generate additional data because as shown in the visualization the distribution of examples are not uniformly distributed. To add more data to the the data set, I used translate ([-2,2] pixels), scale ([.9,1.1] ratio) and rotation ([-15,+15] degrees) as suggested by [Traffic Sign Recognition with Multi-Scale Convolutional Networks](http://yann.lecun.com/exdb/publis/pdf/sermanet-ijcnn-11.pdf). 
 
@@ -110,7 +110,7 @@ The architecture of my model:
 
 ####3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-TTo train the model, I used an Adamoptimizer with 50 epochs and batch size of 256 images.
+To train the model, I used an Adamoptimizer with 50 epochs and batch size of 256 images.
 
 ####4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
