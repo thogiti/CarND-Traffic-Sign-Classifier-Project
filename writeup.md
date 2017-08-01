@@ -55,38 +55,28 @@ signs data set:
 
 Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
 
-![Historgram of Training data][https://github.com/thogiti/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup/training_data_histogram.png]
+(https://github.com/thogiti/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup/training_data_histogram.png)
 
-![Historgram of all datasets][https://github.com/thogiti/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup/historgram-all-datasets.png]
+(https://github.com/thogiti/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup/historgram-all-datasets.png)
 
 The class lables (signs) are not uniformly distributed. This may lead to bias in learning from the over sampled signs.
 
 We can also visualize full list of signs.
 
-[https://github.com/thogiti/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup/class_images.png]
+(https://github.com/thogiti/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup/class_images.png)
 
 
 ###Design and Test a Model Architecture
 
 ####1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
-As a first step, I decided to convert the images to grayscale because ...
+As a first step, I converted the images to grayscale by converting from RGB to YUV and only using the Y channel according to [Traffic Sign Recognition with Multi-Scale Convolutional Networks](http://yann.lecun.com/exdb/publis/pdf/sermanet-ijcnn-11.pdf) using grayscale images improves the performance of the network.
 
-Here is an example of a traffic sign image before and after grayscaling.
+Then I normalized the image data (-0.5, 0.5) while improving the dynamic range of the image by spreading the histogram. 
 
-![alt text][image2]
+(https://github.com/thogiti/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup/transformed_data_sample_image.png)
 
-As a last step, I normalized the image data because ...
-
-I decided to generate additional data because ... 
-
-To add more data to the the data set, I used the following techniques because ... 
-
-Here is an example of an original image and an augmented image:
-
-![alt text][image3]
-
-The difference between the original data set and the augmented data set is the following ... 
+Finally, I decided to generate additional data because as shown in the visualization the distribution of examples are not uniformly distributed. To add more data to the the data set, I used translate ([-2,2] pixels), scale ([.9,1.1] ratio) and rotation ([-15,+15] degrees) as suggested by [Traffic Sign Recognition with Multi-Scale Convolutional Networks](http://yann.lecun.com/exdb/publis/pdf/sermanet-ijcnn-11.pdf). 
 
 
 ####2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
